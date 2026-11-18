@@ -51,7 +51,7 @@ jobs:
 
       # 7. Generar build de Angular
       - name: Build Angular
-        run: npm run build -- --base-href "/${{ github.event.repository.name }}/"
+        run: npm run build -- --base-href "/"
         
       # 8. Configure SPA fallback (Opcional si no se usa el Hash)
       - name: Configure GitHub Pages fallback
