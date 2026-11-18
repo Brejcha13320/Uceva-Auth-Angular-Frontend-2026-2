@@ -1,0 +1,347 @@
+
+<div class="register">
+
+  <!-- Panel izquierdo -->
+  <section class="register__banner">
+
+    <div class="register__banner-content">
+
+      <!-- Marca -->
+      <div class="register__brand">
+        <div class="register__brand-icon">
+          <i class="bi bi-grid-1x2-fill"></i>
+        </div>
+
+        <span>MyPlatform</span>
+      </div>
+
+      <!-- Mensaje principal -->
+      <div class="register__welcome">
+
+        <span class="register__eyebrow">
+          COMIENZA ALGO NUEVO
+        </span>
+
+        <h1>
+          Tu próxima experiencia
+          <span>comienza aquí.</span>
+        </h1>
+
+        <p>
+          Únete a nuestra comunidad y descubre una forma
+          más sencilla de gestionar tus actividades,
+          organizar tu información y disfrutar de
+          todas las funcionalidades de nuestra plataforma.
+        </p>
+
+        <!-- Ilustración -->
+        <div class="register__illustration">
+
+          <div class="register__illustration-circle">
+            <i class="bi bi-person-plus-fill"></i>
+          </div>
+
+          <div class="register__floating-card register__floating-card--top">
+            <i class="bi bi-check-circle-fill"></i>
+            Cuenta creada fácilmente
+          </div>
+
+          <div class="register__floating-card register__floating-card--bottom">
+            <i class="bi bi-shield-check"></i>
+            Información protegida
+          </div>
+
+        </div>
+
+        <!-- Beneficios -->
+        <div class="register__benefits">
+
+          <div class="register__benefit">
+            <i class="bi bi-check2-circle"></i>
+            <span>Registro rápido y sencillo</span>
+          </div>
+
+          <div class="register__benefit">
+            <i class="bi bi-check2-circle"></i>
+            <span>Acceso a todas las funcionalidades</span>
+          </div>
+
+          <div class="register__benefit">
+            <i class="bi bi-check2-circle"></i>
+            <span>Experiencia personalizada</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="register__footer">
+        <span>© 2026 MyPlatform. Todos los derechos reservados.</span>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Panel derecho -->
+  <section class="register__content">
+
+    <div class="register__form-container">
+
+      <div class="register__form-header">
+
+        <span class="register__form-eyebrow">
+          CREA TU CUENTA
+        </span>
+
+        <h2>Registrarse</h2>
+
+        <p>
+          Completa tus datos para comenzar a disfrutar
+          de nuestra plataforma.
+        </p>
+
+      </div>
+
+      <form
+        [formGroup]="registerForm"
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+
+        <!-- Nombre completo -->
+        <div class="mb-3">
+
+          <label for="fullName" class="form-label">
+            Nombre completo
+          </label>
+
+          <div class="register__input-group">
+            <i class="bi bi-person"></i>
+
+            <input
+              id="fullName"
+              type="text"
+              class="form-control"
+              placeholder="Ingresa tu nombre completo"
+              formControlName="fullName"
+              autocomplete="name"
+              [class.is-invalid]="f['fullName'].invalid && f['fullName'].touched"
+            />
+          </div>
+
+          @if (f['fullName'].hasError('required') && f['fullName'].touched) {
+            <div class="text-danger small mt-1">
+              El nombre completo es obligatorio.
+            </div>
+          }
+
+          @if (f['fullName'].hasError('minlength') && f['fullName'].touched) {
+            <div class="text-danger small mt-1">
+              El nombre debe tener al menos 3 caracteres.
+            </div>
+          }
+
+          @if (f['fullName'].hasError('maxlength') && f['fullName'].touched) {
+            <div class="text-danger small mt-1">
+              El nombre no puede superar los 100 caracteres.
+            </div>
+          }
+
+        </div>
+
+        <!-- Correo electrónico -->
+        <div class="mb-3">
+
+          <label for="email" class="form-label">
+            Correo electrónico
+          </label>
+
+          <div class="register__input-group">
+            <i class="bi bi-envelope"></i>
+
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              placeholder="ejemplo@correo.com"
+              formControlName="email"
+              autocomplete="email"
+              [class.is-invalid]="f['email'].invalid && f['email'].touched"
+            />
+          </div>
+
+          @if (f['email'].hasError('required') && f['email'].touched) {
+            <div class="text-danger small mt-1">
+              El correo electrónico es obligatorio.
+            </div>
+          }
+
+          @if (f['email'].hasError('email') && f['email'].touched) {
+            <div class="text-danger small mt-1">
+              Ingresa un correo electrónico válido.
+            </div>
+          }
+
+        </div>
+
+        <!-- Rol -->
+        <div class="mb-3">
+
+          <label for="role" class="form-label">
+            Rol
+          </label>
+
+          <div class="register__input-group">
+            <i class="bi bi-person-badge"></i>
+
+            <select
+              id="role"
+              class="form-select"
+              formControlName="role"
+              [class.is-invalid]="f['role'].invalid && f['role'].touched"
+            >
+              <option value="" disabled>Selecciona un rol</option>
+              <option value="ESTUDIANTE">Estudiante</option>
+              <option value="DOCENTE">Docente</option>
+            </select>
+          </div>
+
+          @if (f['role'].hasError('required') && f['role'].touched) {
+            <div class="text-danger small mt-1">
+              El rol es obligatorio.
+            </div>
+          }
+
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-3">
+
+          <label for="password" class="form-label">
+            Contraseña
+          </label>
+
+          <div class="register__input-group">
+            <i class="bi bi-lock"></i>
+
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Mínimo 8 caracteres"
+              formControlName="password"
+              autocomplete="new-password"
+              [class.is-invalid]="f['password'].invalid && f['password'].touched"
+            />
+
+            <button
+              type="button"
+              class="register__password-toggle"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            >
+              <i [class]="showPassword() ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+
+          @if (f['password'].hasError('required') && f['password'].touched) {
+            <div class="text-danger small mt-1">
+              La contraseña es obligatoria.
+            </div>
+          }
+
+          @if (f['password'].hasError('minlength') && f['password'].touched) {
+            <div class="text-danger small mt-1">
+              La contraseña debe tener al menos 8 caracteres.
+            </div>
+          }
+
+        </div>
+
+        <!-- Confirmar contraseña -->
+        <div class="mb-4">
+
+          <label for="repeatPassword" class="form-label">
+            Confirmar contraseña
+          </label>
+
+          <div class="register__input-group">
+            <i class="bi bi-lock-fill"></i>
+
+            <input
+              id="repeatPassword"
+              [type]="showRepeatPassword() ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Repite tu contraseña"
+              formControlName="repeatPassword"
+              autocomplete="new-password"
+              [class.is-invalid]="
+                (f['repeatPassword'].invalid ||
+                registerForm.hasError('passwordMismatch')) &&
+                f['repeatPassword'].touched
+              "
+            />
+
+            <button
+              type="button"
+              class="register__password-toggle"
+              (click)="toggleRepeatPassword()"
+              [attr.aria-label]="showRepeatPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            >
+              <i [class]="showRepeatPassword() ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+
+          @if (f['repeatPassword'].hasError('required') && f['repeatPassword'].touched) {
+            <div class="text-danger small mt-1">
+              Debes confirmar tu contraseña.
+            </div>
+          }
+
+          @if (registerForm.hasError('passwordMismatch') && f['repeatPassword'].touched) {
+            <div class="text-danger small mt-1">
+              Las contraseñas no coinciden.
+            </div>
+          }
+
+        </div>
+
+        <!-- Registrar -->
+        <button
+          type="submit"
+          class="btn register__submit w-100"
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+            <span
+              class="spinner-border spinner-border-sm me-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Registrando...
+          } @else {
+            <i class="bi bi-person-plus me-2"></i>
+            Registrarse
+          }
+        </button>
+
+      </form>
+
+      <!-- Volver al login -->
+      <div class="register__login">
+        ¿Ya tienes una cuenta?
+        <a routerLink="/auth/login">Iniciar sesión</a>
+      </div>
+
+      <div class="register__security">
+        <i class="bi bi-shield-lock"></i>
+        Tu información está protegida.
+      </div>
+
+    </div>
+
+  </section>
+
+</div>

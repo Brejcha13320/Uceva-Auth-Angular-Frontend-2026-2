@@ -1,0 +1,64 @@
+<div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Titulo</th>
+                <th scope="col">Asignatura</th>
+                <th scope="col">Fecha Creación</th>
+                <th scope="col">Publicado</th>
+                <th scope="col" class="text-center">Opciones</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (project of projects; track project.id) {
+                <tr>
+                    <td class="fw-semibold">
+                        {{ project.titulo }}
+                    </td>
+
+                    <td>
+                        <span class="badge text-bg-info">
+                            {{ project.asignatura }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge text-bg-info">
+                            {{ project.createdAt | date }}
+                        </span>
+                    </td>
+
+                    <td>
+                        @if (project.publicado) {
+                            <span class="badge text-bg-success">
+                                Activo
+                            </span>
+                        } @else {
+                            <span class="badge text-bg-danger">
+                                Inactivo
+                            </span>
+                        }
+                    </td>
+
+                    <!-- Options -->
+                    <td>
+                        <div class="d-flex justify-content-center gap-2">
+                            <app-button [config]="configDetailButton" (onClick)="click(project.id, 'detail')" />
+                            <app-button [config]="configEditButton" (onClick)="click(project.id, 'edit')" />
+                            <app-button [config]="configDeleteButton" (onClick)="click(project.id, 'delete')" />
+                        </div>
+                    </td>
+                </tr>
+            } @empty {
+                <tr>
+                    <td colspan="9" class="text-center py-4 text-muted">
+                        No hay proyectos registrados.
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

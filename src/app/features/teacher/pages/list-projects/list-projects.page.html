@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-end" >
+    <app-button [config]="createButtonConfig" (onClick)="createProject()" />
+</div>
+<div class="mt-3">
+    <app-table-projects [projects]="projects" (onClickActions)="tableEvents($event)" />
+</div>

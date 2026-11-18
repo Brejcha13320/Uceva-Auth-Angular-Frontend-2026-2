@@ -1,0 +1,230 @@
+
+<div class="dashboard-home">
+
+  <!-- Header -->
+  <header class="dashboard-home__header">
+    <div>
+      <h1>¡Hola, {{ userName() }}! 👋</h1>
+      <p>
+        Aquí tienes un resumen de lo que está sucediendo
+        en tu negocio.
+      </p>
+    </div>
+
+    <div class="dashboard-home__header-date">
+      <i class="bi bi-calendar3"></i>
+      <span>11 de noviembre de 2026</span>
+    </div>
+  </header>
+
+  <!-- Statistics -->
+  <section class="dashboard-home__stats">
+
+    @for (stat of stats(); track stat.title) {
+      <article class="dashboard-home__stat-card">
+
+        <div class="dashboard-home__stat-top">
+          <div class="dashboard-home__stat-icon">
+            <i [class]="'bi ' + stat.icon"></i>
+          </div>
+
+          <span
+            class="dashboard-home__variation"
+            [class.dashboard-home__variation--negative]="!stat.positive"
+          >
+            <i
+              class="bi"
+              [class.bi-arrow-up-right]="stat.positive"
+              [class.bi-arrow-down-right]="!stat.positive"
+            ></i>
+            {{ stat.variation }}
+          </span>
+        </div>
+
+        <div class="dashboard-home__stat-info">
+          <span>{{ stat.title }}</span>
+          <h2>{{ stat.value }}</h2>
+          <small>{{ stat.description }}</small>
+        </div>
+
+      </article>
+    }
+
+  </section>
+
+  <!-- Main content -->
+  <section class="dashboard-home__main">
+
+    <!-- Sales chart -->
+    <article class="dashboard-home__panel dashboard-home__sales">
+
+      <div class="dashboard-home__panel-header">
+        <div>
+          <h3>Resumen de ventas</h3>
+          <p>Comportamiento de ventas durante el año</p>
+        </div>
+
+        <button type="button" class="dashboard-home__filter">
+          Este año
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+
+      <div class="dashboard-home__chart">
+
+        <div class="dashboard-home__chart-grid">
+          @for (line of [100, 75, 50, 25, 0]; track line) {
+            <div class="dashboard-home__chart-line">
+              <span>{{ line }}%</span>
+              <div></div>
+            </div>
+          }
+        </div>
+
+        <div class="dashboard-home__chart-bars">
+          @for (sale of monthlySales(); track sale.month) {
+            <div class="dashboard-home__chart-column">
+
+              <div class="dashboard-home__chart-bar-container">
+                <div
+                  class="dashboard-home__chart-bar"
+                  [style.height]="getBarHeight(sale.value)"
+                  [attr.title]="sale.value + '%'"
+                ></div>
+              </div>
+
+              <span>{{ sale.month }}</span>
+            </div>
+          }
+        </div>
+
+      </div>
+
+      <div class="dashboard-home__chart-legend">
+        <span></span>
+        Ventas mensuales
+      </div>
+
+    </article>
+
+    <!-- Quick information -->
+    <article class="dashboard-home__panel dashboard-home__summary">
+
+      <div class="dashboard-home__panel-header">
+        <div>
+          <h3>Resumen general</h3>
+          <p>Estado actual del negocio</p>
+        </div>
+      </div>
+
+      <div class="dashboard-home__summary-item">
+        <div class="dashboard-home__summary-icon dashboard-home__summary-icon--blue">
+          <i class="bi bi-cart3"></i>
+        </div>
+
+        <div>
+          <span>Compras pendientes</span>
+          <strong>08</strong>
+        </div>
+      </div>
+
+      <div class="dashboard-home__summary-item">
+        <div class="dashboard-home__summary-icon dashboard-home__summary-icon--green">
+          <i class="bi bi-receipt"></i>
+        </div>
+
+        <div>
+          <span>Ventas realizadas</span>
+          <strong>124</strong>
+        </div>
+      </div>
+
+      <div class="dashboard-home__summary-item">
+        <div class="dashboard-home__summary-icon dashboard-home__summary-icon--orange">
+          <i class="bi bi-exclamation-triangle"></i>
+        </div>
+
+        <div>
+          <span>Productos con bajo stock</span>
+          <strong>12</strong>
+        </div>
+      </div>
+
+      <div class="dashboard-home__summary-item">
+        <div class="dashboard-home__summary-icon dashboard-home__summary-icon--purple">
+          <i class="bi bi-person-plus"></i>
+        </div>
+
+        <div>
+          <span>Nuevos clientes</span>
+          <strong>18</strong>
+        </div>
+      </div>
+
+    </article>
+
+  </section>
+
+  <!-- Recent activities -->
+  <section class="dashboard-home__panel dashboard-home__activities">
+
+    <div class="dashboard-home__panel-header">
+      <div>
+        <h3>Actividad reciente</h3>
+        <p>Últimas operaciones registradas en la plataforma</p>
+      </div>
+
+      <button type="button" class="dashboard-home__view-all">
+        Ver todas
+        <i class="bi bi-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table dashboard-home__table align-middle mb-0">
+
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Referencia</th>
+            <th>Fecha</th>
+            <th>Valor</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (activity of recentActivities(); track activity.reference) {
+            <tr>
+              <td class="dashboard-home__activity-description">
+                {{ activity.description }}
+              </td>
+
+              <td>{{ activity.reference }}</td>
+
+              <td>{{ activity.date }}</td>
+
+              <td class="dashboard-home__activity-amount">
+                {{ activity.amount }}
+              </td>
+
+              <td>
+                <span
+                  class="dashboard-home__status"
+                  [class.dashboard-home__status--success]="activity.status === 'Completado'"
+                  [class.dashboard-home__status--pending]="activity.status === 'Pendiente'"
+                  [class.dashboard-home__status--cancelled]="activity.status === 'Cancelado'"
+                >
+                  {{ activity.status }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+
+      </table>
+    </div>
+
+  </section>
+
+</div>

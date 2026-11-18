@@ -1,0 +1,143 @@
+<p>create-task.page works!</p>
+
+<app-back />
+
+<div class="container-fluid py-4">
+
+    <!-- Encabezado -->
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Registrar tarea</h3>
+        <p class="text-muted mb-0">
+            Completa la información para registrar una nueva tarea.
+        </p>
+    </div>
+
+    <!-- Formulario -->
+    <div class="card border">
+
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">
+                <i class="bi bi-clipboard-plus me-2"></i>
+                Información de la tarea
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form [formGroup]="taskForm" (ngSubmit)="createTask()">
+
+                <div class="row g-3">
+
+                    <!-- Título -->
+                    <div class="col-12">
+                        <label for="titulo" class="form-label">
+                            Título de la tarea *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            class="form-control"
+                            formControlName="titulo"
+                            placeholder="Ingrese el título de la tarea">
+
+                        @if (taskForm.get('titulo')?.touched && taskForm.get('titulo')?.invalid) {
+                            <small class="text-danger">
+                                El título de la tarea es obligatorio.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="col-12">
+                        <label for="descripcion" class="form-label">
+                            Descripción *
+                        </label>
+
+                        <textarea
+                            id="descripcion"
+                            class="form-control"
+                            formControlName="descripcion"
+                            rows="4"
+                            placeholder="Ingrese la descripción de la tarea">
+                        </textarea>
+
+                        @if (taskForm.get('descripcion')?.touched && taskForm.get('descripcion')?.invalid) {
+                            <small class="text-danger">
+                                La descripción de la tarea es obligatoria.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Prioridad -->
+                    <div class="col-md-6">
+                        <label for="prioridad" class="form-label">
+                            Prioridad *
+                        </label>
+
+                        <select
+                            id="prioridad"
+                            class="form-select"
+                            formControlName="prioridad">
+
+                            <option value="">Seleccione una prioridad</option>
+                            <option value="ALTA">Alta</option>
+                            <option value="MEDIA">Media</option>
+                            <option value="BAJA">Baja</option>
+
+                        </select>
+
+                        @if (taskForm.get('prioridad')?.touched && taskForm.get('prioridad')?.invalid) {
+                            <small class="text-danger">
+                                Seleccione una prioridad.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Estado -->
+                    <div class="col-md-6">
+                        <label for="estado" class="form-label">
+                            Estado *
+                        </label>
+
+                        <select
+                            id="estado"
+                            class="form-select"
+                            formControlName="estado">
+
+                            <option value="PENDIENTE">Pendiente</option>
+                            <option value="PROCESO">En proceso</option>
+                            <option value="COMPLETADA">Completada</option>
+
+                        </select>
+
+                        @if (taskForm.get('estado')?.touched && taskForm.get('estado')?.invalid) {
+                            <small class="text-danger">
+                                Seleccione un estado.
+                            </small>
+                        }
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Acciones -->
+                <div class="d-flex justify-content-end gap-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="taskForm.invalid">
+                        <i class="bi bi-save me-2"></i>
+                        Registrar tarea
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

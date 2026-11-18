@@ -1,0 +1,280 @@
+
+<app-back />
+
+<div class="container-fluid mt-3">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Detalle del proyecto</h3>
+        <p class="text-muted mb-0">
+            Información general y seguimiento del proyecto.
+        </p>
+    </div>
+
+    @if (project) {
+
+        <!-- Project Header -->
+        <div class="card border mb-4">
+            <div class="card-body p-4">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div
+                        class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center"
+                        style="width: 65px; height: 65px; font-size: 2rem;"
+                    >
+                        <i class="bi bi-folder2-open"></i>
+                    </div>
+
+                    <div class="flex-grow-1">
+                        <h4 class="fw-bold mb-1">
+                            {{ project.titulo }}
+                        </h4>
+
+                        <span class="text-muted">
+                            Proyecto #{{ project.id }}
+                        </span>
+                    </div>
+
+                    <div class="d-flex flex-column align-items-end gap-2">
+
+                        <!-- Publication Status -->
+                        <span
+                            class="badge rounded-pill"
+                            [ngClass]="{
+                                'text-bg-success': project.publicado,
+                                'text-bg-secondary': !project.publicado
+                            }"
+                        >
+                            <i
+                                class="bi me-1"
+                                [ngClass]="project.publicado
+                                    ? 'bi-check-circle-fill'
+                                    : 'bi-file-earmark'"
+                            ></i>
+
+                            {{ project.publicado ? 'Publicado' : 'Borrador' }}
+                        </span>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- General Information -->
+            <div class="col-12 col-lg-7">
+                <div class="card border h-100">
+
+                    <div class="card-header bg-white py-3">
+                        <h5 class="fw-semibold mb-0">
+                            <i class="bi bi-info-circle text-primary me-2"></i>
+                            Información general
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <div class="row g-4">
+
+                            <!-- Title -->
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-1">
+                                    Título del proyecto
+                                </small>
+
+                                <span class="fw-medium">
+                                    {{ project.titulo }}
+                                </span>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-1">
+                                    Asignatura
+                                </small>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <i class="bi bi-book text-primary"></i>
+
+                                    <span class="fw-medium">
+                                        {{ project.asignatura }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-2">
+                                    Descripción
+                                </small>
+
+                                <p class="mb-0 text-secondary">
+                                    {{ project.descripcion }}
+                                </p>
+                            </div>
+
+                            <!-- URL -->
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-2">
+                                    Enlace del proyecto
+                                </small>
+
+                                @if (project.url) {
+                                    <a
+                                        [href]="project.url"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-decoration-none text-break"
+                                    >
+                                        <i class="bi bi-box-arrow-up-right me-2"></i>
+                                        {{ project.url }}
+                                    </a>
+                                } @else {
+                                    <span class="text-muted">
+                                        No se ha registrado un enlace.
+                                    </span>
+                                }
+                            </div>
+
+                            <!-- UUID -->
+                            <div class="col-12">
+                                <small class="text-muted d-block mb-1">
+                                    Identificador
+                                </small>
+
+                                <span class="font-monospace text-break">
+                                    <i class="bi bi-hash text-secondary me-2"></i>
+                                    {{ project.id }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Information -->
+            <div class="col-12 col-lg-5">
+                <div class="card border h-100">
+
+                    <div class="card-header bg-white py-3">
+                        <h5 class="fw-semibold mb-0">
+                            <i class="bi bi-clock-history text-primary me-2"></i>
+                            Información de seguimiento
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-4">
+
+                        <!-- Publication Status -->
+                        <div class="mb-4">
+                            <small class="text-muted d-block mb-2">
+                                Estado de publicación
+                            </small>
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div
+                                    class="rounded-3 p-3"
+                                    [ngClass]="project.publicado
+                                        ? 'bg-success bg-opacity-10 text-success'
+                                        : 'bg-secondary bg-opacity-10 text-secondary'"
+                                >
+                                    <i
+                                        class="fs-3 bi"
+                                        [ngClass]="project.publicado
+                                            ? 'bi-globe'
+                                            : 'bi-file-earmark-text'"
+                                    ></i>
+                                </div>
+
+                                <div>
+                                    <h5 class="fw-bold mb-0">
+                                        {{ project.publicado ? 'Publicado' : 'Borrador' }}
+                                    </h5>
+
+                                    <small class="text-muted">
+                                        {{ project.publicado
+                                            ? 'El proyecto está disponible.'
+                                            : 'El proyecto aún no está publicado.' }}
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Created At -->
+                        <div class="mb-4">
+                            <small class="text-muted d-block mb-2">
+                                Fecha de creación
+                            </small>
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="rounded-3 bg-info bg-opacity-10 text-info p-3">
+                                    <i class="bi bi-calendar-plus fs-3"></i>
+                                </div>
+
+                                <div>
+                                    <h6 class="fw-bold mb-0">
+                                        {{ project.createdAt | date:'dd/MM/yyyy' }}
+                                    </h6>
+
+                                    <small class="text-muted">
+                                        {{ project.createdAt | date:'hh:mm a' }}
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Updated At -->
+                        <div>
+                            <small class="text-muted d-block mb-2">
+                                Última actualización
+                            </small>
+
+                            <div class="d-flex align-items-center gap-3">
+
+                                <div class="rounded-3 bg-warning bg-opacity-10 text-warning p-3">
+                                    <i class="bi bi-calendar-check fs-3"></i>
+                                </div>
+
+                                <div>
+                                    <h6 class="fw-bold mb-0">
+                                        {{ project.updatedAt | date:'dd/MM/yyyy' }}
+                                    </h6>
+
+                                    <small class="text-muted">
+                                        {{ project.updatedAt | date:'hh:mm a' }}
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    } @else {
+
+        <!-- Project Not Found -->
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            No se encontró información del proyecto.
+        </div>
+
+    }
+
+</div>

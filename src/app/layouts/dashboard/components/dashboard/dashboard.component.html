@@ -1,0 +1,19 @@
+<div class="dashboard-layout">
+
+  @if ($user(); as user) {
+    <app-navbar [user]="user" />
+  }
+
+  <div class="dashboard-layout__body">
+
+    @if ($user(); as user) {
+      <app-sidebar [userRole]="user.rol" />
+    }
+
+    <main class="dashboard-layout__content">
+      <router-outlet />
+    </main>
+
+  </div>
+
+</div>

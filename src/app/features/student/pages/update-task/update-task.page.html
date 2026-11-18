@@ -1,0 +1,177 @@
+
+<div class="container-fluid py-4">
+
+  <app-back />
+
+  <div class="row justify-content-center mt-3">
+    <div class="col-12 col-lg-8 col-xl-7">
+
+      <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+          <div class="mb-4">
+            <h4 class="fw-bold mb-1">Actualizar tarea</h4>
+            <p class="text-muted mb-0">
+              Modifica la información y el estado de tu tarea.
+            </p>
+          </div>
+
+          <form [formGroup]="taskForm" (ngSubmit)="updateTask()">
+
+            <!-- Título -->
+            <div class="mb-3">
+              <label for="titulo" class="form-label fw-semibold">
+                Título
+              </label>
+
+              <input
+                id="titulo"
+                type="text"
+                class="form-control"
+                formControlName="titulo"
+                placeholder="Ingrese el título de la tarea"
+                [class.is-invalid]="
+                  taskForm.get('titulo')?.invalid &&
+                  taskForm.get('titulo')?.touched
+                "
+              />
+
+              @if (
+                taskForm.get('titulo')?.hasError('required') &&
+                taskForm.get('titulo')?.touched
+              ) {
+                <div class="invalid-feedback">
+                  El título es obligatorio.
+                </div>
+              }
+            </div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+              <label for="descripcion" class="form-label fw-semibold">
+                Descripción
+              </label>
+
+              <textarea
+                id="descripcion"
+                class="form-control"
+                formControlName="descripcion"
+                rows="4"
+                placeholder="Ingrese la descripción de la tarea"
+                [class.is-invalid]="
+                  taskForm.get('descripcion')?.invalid &&
+                  taskForm.get('descripcion')?.touched
+                "
+              ></textarea>
+
+              @if (
+                taskForm.get('descripcion')?.hasError('required') &&
+                taskForm.get('descripcion')?.touched
+              ) {
+                <div class="invalid-feedback">
+                  La descripción es obligatoria.
+                </div>
+              }
+            </div>
+
+            <div class="row">
+
+              <!-- Prioridad -->
+              <div class="col-md-6 mb-3">
+                <label for="prioridad" class="form-label fw-semibold">
+                  Prioridad
+                </label>
+
+                <select
+                  id="prioridad"
+                  class="form-select"
+                  formControlName="prioridad"
+                  [class.is-invalid]="
+                    taskForm.get('prioridad')?.invalid &&
+                    taskForm.get('prioridad')?.touched
+                  "
+                >
+                  <option value="" disabled>
+                    Seleccione una prioridad
+                  </option>
+                  <option value="ALTA">Alta</option>
+                  <option value="MEDIA">Media</option>
+                  <option value="BAJA">Baja</option>
+                </select>
+
+                @if (
+                  taskForm.get('prioridad')?.hasError('required') &&
+                  taskForm.get('prioridad')?.touched
+                ) {
+                  <div class="invalid-feedback">
+                    Seleccione una prioridad.
+                  </div>
+                }
+              </div>
+
+              <!-- Estado -->
+              <div class="col-md-6 mb-3">
+                <label for="estado" class="form-label fw-semibold">
+                  Estado
+                </label>
+
+                <select
+                  id="estado"
+                  class="form-select"
+                  formControlName="estado"
+                  [class.is-invalid]="
+                    taskForm.get('estado')?.invalid &&
+                    taskForm.get('estado')?.touched
+                  "
+                >
+                  <option value="" disabled>
+                    Seleccione un estado
+                  </option>
+                  <option value="PENDIENTE">Pendiente</option>
+                  <option value="PROCESO">En proceso</option>
+                  <option value="COMPLETADA">Completada</option>
+                </select>
+
+                @if (
+                  taskForm.get('estado')?.hasError('required') &&
+                  taskForm.get('estado')?.touched
+                ) {
+                  <div class="invalid-feedback">
+                    Seleccione un estado.
+                  </div>
+                }
+              </div>
+
+            </div>
+
+            <!-- Acciones -->
+            <div class="d-flex justify-content-end gap-2 mt-4">
+
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                (click)="goToList()"
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="submit"
+                class="btn btn-primary"
+                [disabled]="taskForm.invalid"
+              >
+                <i class="bi bi-save me-2"></i>
+                Guardar cambios
+              </button>
+
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

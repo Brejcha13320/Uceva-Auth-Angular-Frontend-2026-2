@@ -1,0 +1,187 @@
+
+<app-back />
+
+<div class="container-fluid mt-3">
+
+    <!-- Header -->
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Actualizar proyecto</h3>
+        <p class="text-muted mb-0">
+            Modifica la información y configuración de tu proyecto.
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-9 col-xl-8">
+
+            <div class="card border">
+                <div class="card-body p-4">
+
+                    <form [formGroup]="projectForm" (ngSubmit)="updateProject()">
+
+                        <!-- Title -->
+                        <div class="mb-3">
+                            <label for="titulo" class="form-label fw-semibold">
+                                Título del proyecto
+                            </label>
+
+                            <input
+                                id="titulo"
+                                type="text"
+                                class="form-control"
+                                formControlName="titulo"
+                                placeholder="Ingrese el título del proyecto"
+                                [class.is-invalid]="
+                                    projectForm.get('titulo')?.invalid &&
+                                    projectForm.get('titulo')?.touched
+                                "
+                            />
+
+                            @if (
+                                projectForm.get('titulo')?.hasError('required') &&
+                                projectForm.get('titulo')?.touched
+                            ) {
+                                <div class="invalid-feedback">
+                                    El título es obligatorio.
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="descripcion" class="form-label fw-semibold">
+                                Descripción
+                            </label>
+
+                            <textarea
+                                id="descripcion"
+                                class="form-control"
+                                formControlName="descripcion"
+                                rows="4"
+                                placeholder="Ingrese la descripción del proyecto"
+                                [class.is-invalid]="
+                                    projectForm.get('descripcion')?.invalid &&
+                                    projectForm.get('descripcion')?.touched
+                                "
+                            ></textarea>
+
+                            @if (
+                                projectForm.get('descripcion')?.hasError('required') &&
+                                projectForm.get('descripcion')?.touched
+                            ) {
+                                <div class="invalid-feedback">
+                                    La descripción es obligatoria.
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Subject -->
+                        <div class="mb-3">
+                            <label for="asignatura" class="form-label fw-semibold">
+                                Asignatura
+                            </label>
+
+                            <input
+                                id="asignatura"
+                                type="text"
+                                class="form-control"
+                                formControlName="asignatura"
+                                placeholder="Ingrese la asignatura"
+                                [class.is-invalid]="
+                                    projectForm.get('asignatura')?.invalid &&
+                                    projectForm.get('asignatura')?.touched
+                                "
+                            />
+
+                            @if (
+                                projectForm.get('asignatura')?.hasError('required') &&
+                                projectForm.get('asignatura')?.touched
+                            ) {
+                                <div class="invalid-feedback">
+                                    La asignatura es obligatoria.
+                                </div>
+                            }
+                        </div>
+
+                        <!-- URL -->
+                        <div class="mb-3">
+                            <label for="url" class="form-label fw-semibold">
+                                URL del proyecto
+                            </label>
+
+                            <input
+                                id="url"
+                                type="url"
+                                class="form-control"
+                                formControlName="url"
+                                placeholder="https://github.com/usuario/proyecto"
+                                [class.is-invalid]="
+                                    projectForm.get('url')?.invalid &&
+                                    projectForm.get('url')?.touched
+                                "
+                            />
+
+                            @if (
+                                projectForm.get('url')?.hasError('required') &&
+                                projectForm.get('url')?.touched
+                            ) {
+                                <div class="invalid-feedback">
+                                    La URL es obligatoria.
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Published -->
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <input
+                                    id="publicado"
+                                    type="checkbox"
+                                    class="form-check-input"
+                                    role="switch"
+                                    formControlName="publicado"
+                                />
+
+                                <label
+                                    for="publicado"
+                                    class="form-check-label fw-semibold"
+                                >
+                                    Publicar proyecto
+                                </label>
+                            </div>
+
+                            <small class="text-muted">
+                                Activa esta opción para que el proyecto figure como publicado.
+                            </small>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <button
+                                type="button"
+                                class="btn btn-outline-secondary"
+                                (click)="goToList()"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                [disabled]="projectForm.invalid"
+                            >
+                                <i class="bi bi-save me-2"></i>
+                                Guardar cambios
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

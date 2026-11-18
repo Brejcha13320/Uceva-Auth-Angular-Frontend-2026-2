@@ -1,0 +1,160 @@
+
+<app-back />
+
+<div class="container-fluid py-4">
+
+    <!-- Encabezado -->
+    <div class="mb-4">
+        <h3 class="fw-bold mb-1">Registrar proyecto</h3>
+        <p class="text-muted mb-0">
+            Completa la información para registrar un nuevo proyecto.
+        </p>
+    </div>
+
+    <!-- Formulario -->
+    <div class="card border">
+
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">
+                <i class="bi bi-folder-plus me-2"></i>
+                Información del proyecto
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form [formGroup]="projectForm" (ngSubmit)="createProject()">
+
+                <div class="row g-3">
+
+                    <!-- Título -->
+                    <div class="col-12">
+                        <label for="titulo" class="form-label">
+                            Título del proyecto *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            class="form-control"
+                            formControlName="titulo"
+                            placeholder="Ingrese el título del proyecto">
+
+                        @if (projectForm.get('titulo')?.touched && projectForm.get('titulo')?.invalid) {
+                            <small class="text-danger">
+                                El título del proyecto es obligatorio.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="col-12">
+                        <label for="descripcion" class="form-label">
+                            Descripción *
+                        </label>
+
+                        <textarea
+                            id="descripcion"
+                            class="form-control"
+                            formControlName="descripcion"
+                            rows="4"
+                            placeholder="Ingrese la descripción del proyecto">
+                        </textarea>
+
+                        @if (projectForm.get('descripcion')?.touched && projectForm.get('descripcion')?.invalid) {
+                            <small class="text-danger">
+                                La descripción del proyecto es obligatoria.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Asignatura -->
+                    <div class="col-md-6">
+                        <label for="asignatura" class="form-label">
+                            Asignatura *
+                        </label>
+
+                        <input
+                            type="text"
+                            id="asignatura"
+                            class="form-control"
+                            formControlName="asignatura"
+                            placeholder="Ingrese la asignatura">
+
+                        @if (projectForm.get('asignatura')?.touched && projectForm.get('asignatura')?.invalid) {
+                            <small class="text-danger">
+                                La asignatura es obligatoria.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- URL -->
+                    <div class="col-md-6">
+                        <label for="url" class="form-label">
+                            URL del proyecto *
+                        </label>
+
+                        <input
+                            type="url"
+                            id="url"
+                            class="form-control"
+                            formControlName="url"
+                            placeholder="https://github.com/usuario/proyecto">
+
+                        @if (projectForm.get('url')?.touched && projectForm.get('url')?.hasError('required')) {
+                            <small class="text-danger">
+                                La URL del proyecto es obligatoria.
+                            </small>
+                        }
+
+                        @if (projectForm.get('url')?.touched && projectForm.get('url')?.hasError('pattern')) {
+                            <small class="text-danger">
+                                Ingresa una URL válida que comience por http:// o https://.
+                            </small>
+                        }
+                    </div>
+
+                    <!-- Publicación -->
+                    <div class="col-12">
+                        <div class="form-check form-switch mt-2">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="publicado"
+                                formControlName="publicado">
+
+                            <label class="form-check-label" for="publicado">
+                                Publicar proyecto
+                            </label>
+
+                        </div>
+
+                        <small class="text-muted">
+                            Activa esta opción si deseas que el proyecto quede publicado.
+                        </small>
+                    </div>
+
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Acciones -->
+                <div class="d-flex justify-content-end gap-2">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="projectForm.invalid">
+                        <i class="bi bi-save me-2"></i>
+                        Registrar proyecto
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,192 @@
+
+<div class="login">
+
+  <!-- Panel izquierdo -->
+  <section class="login__banner">
+    <div class="login__banner-content">
+
+      <div class="login__brand">
+        <div class="login__brand-icon">
+          <i class="bi bi-grid-1x2-fill"></i>
+        </div>
+        <span>MyPlatform</span>
+      </div>
+
+      <div class="login__welcome">
+        <span class="login__eyebrow">TU ESPACIO DIGITAL</span>
+
+        <h1>
+          Todo lo que necesitas,
+          <span>en un solo lugar.</span>
+        </h1>
+
+        <p>
+          Gestiona tus actividades, organiza tu información
+          y mantente conectado desde una plataforma diseñada
+          para simplificar tu día a día.
+        </p>
+
+        <div class="login__illustration">
+          <div class="login__illustration-card">
+            <i class="bi bi-shield-check"></i>
+            <span>Acceso seguro y confiable</span>
+          </div>
+
+          <div class="login__illustration-card">
+            <i class="bi bi-lightning-charge"></i>
+            <span>Una experiencia sencilla</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="login__footer">
+        <span>© 2026 MyPlatform. Todos los derechos reservados.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Panel derecho -->
+  <section class="login__content">
+
+    <div class="login__form-container">
+
+      <div class="login__form-header">
+        <span class="login__form-eyebrow">BIENVENIDO DE NUEVO</span>
+
+        <h2>Iniciar sesión</h2>
+
+        <p>
+          Ingresa tus credenciales para acceder a tu cuenta.
+        </p>
+      </div>
+
+      <form
+        [formGroup]="loginForm"
+        (ngSubmit)="onSubmit()"
+        novalidate
+      >
+
+        <!-- Email -->
+        <div class="mb-4">
+          <label for="email" class="form-label">
+            Correo electrónico
+          </label>
+
+          <div class="login__input-group">
+            <i class="bi bi-envelope"></i>
+
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              placeholder="ejemplo@correo.com"
+              formControlName="email"
+              autocomplete="email"
+              [class.is-invalid]="f['email'].invalid && f['email'].touched"
+            />
+          </div>
+
+          @if (f['email'].hasError('required') && f['email'].touched) {
+            <div class="text-danger small mt-2">
+              El correo electrónico es obligatorio.
+            </div>
+          }
+
+          @if (f['email'].hasError('email') && f['email'].touched) {
+            <div class="text-danger small mt-2">
+              Ingresa un correo electrónico válido.
+            </div>
+          }
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3">
+          <label for="password" class="form-label">
+            Contraseña
+          </label>
+
+          <div class="login__input-group">
+            <i class="bi bi-lock"></i>
+
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Ingresa tu contraseña"
+              formControlName="password"
+              autocomplete="current-password"
+              [class.is-invalid]="f['password'].invalid && f['password'].touched"
+            />
+
+            <button
+              type="button"
+              class="login__password-toggle"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            >
+              <i [class]="showPassword() ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+          </div>
+
+          @if (f['password'].hasError('required') && f['password'].touched) {
+            <div class="text-danger small mt-2">
+              La contraseña es obligatoria.
+            </div>
+          }
+        </div>
+
+        <!-- Opciones -->
+        <div class="login__options">
+
+          <div class="form-check">
+            <input
+              id="rememberEmail"
+              type="checkbox"
+              class="form-check-input"
+              formControlName="rememberEmail"
+            />
+
+            <label class="form-check-label" for="rememberEmail">
+              Recordar correo
+            </label>
+          </div>
+
+          <a routerLink="/auth/forgot-password">
+            ¿Olvidaste tu contraseña?
+          </a>
+
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="btn login__submit w-100"
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Iniciando sesión...
+          } @else {
+            Iniciar sesión
+            <i class="bi bi-arrow-right ms-2"></i>
+          }
+        </button>
+
+      </form>
+
+      <div class="login__register">
+        ¿Todavía no tienes una cuenta?
+        <a routerLink="/auth/register">Crear una cuenta</a>
+      </div>
+
+      <div class="login__security">
+        <i class="bi bi-shield-lock"></i>
+        Tu información está protegida.
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
