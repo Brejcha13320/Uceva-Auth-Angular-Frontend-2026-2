@@ -24,15 +24,15 @@ export const routes: Routes = [
             },
             {
                 path: 'student',
-                //canActivate: [roleGuard],
-                //data: { roles: ['ESTUDIANTE'] as UserRole[] },
+                canActivate: [roleGuard],
+                data: { roles: ['ESTUDIANTE'] as UserRole[] },
                 loadChildren: () =>
                     import('./features/student/student.routes').then(m => m.routes)
             },
             {
                 path: 'teacher',
-                //canActivate: [roleGuard],
-                //data: { roles: ['DOCENTE'] as UserRole[] },
+                canActivate: [roleGuard],
+                data: { roles: ['DOCENTE'] as UserRole[] },
                 loadChildren: () =>
                     import('./features/teacher/teacher.routes').then(m => m.routes)
             },
